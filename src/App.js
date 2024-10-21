@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import UserContext from "./userContext";
+import React, { createContext, useState } from "react";
 
+export const MyContext = createContext("dark");
 function App() {
+  const [theme, setTheme] = useState("light");
+  function handleChange() {
+    setTheme((preValue) => (preValue === "light" ? "dark" : "light"));
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MyContext.Provider value={{ theme, setTheme }}>
+        <UserContext handleChange={handleChange} />
+      </MyContext.Provider>
+    </>
   );
 }
 
